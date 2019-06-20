@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-dark bg-dark text-light">
+      <p class="navbar-brand">Welcome {{ request.session.first_name }}</p>
+      <div>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="/books">Home</a>
+        <a class="btn btn-outline-warning my-2 my-sm-0" href="/logout">Logout</a>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-6 mt-5">
+        <div class="h1">My Favorite Books</div>
+        {% for book in all_books %}
+        <div>
+          <p><a href="/books/{{book.id}}">{{book.DBtitle}}</a>
+          <p>(added by {{ book.uploaded_by.DBfirst_name }} {{ book.uploaded_by.DBlast_name }})</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</body>
+
+</html>

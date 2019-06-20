@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar navbar-dark bg-dark text-light">
+      <p class="navbar-brand">Welcome {{ request.session.first_name }}</p>
+      <div>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="/books">Home</a>
+        <a class="btn btn-outline-warning my-2 my-sm-0" href="/logout">Logout</a>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="col mt-5">
+        <h1>{{ book.DBtitle }}</h1>
+        <h6>Added by: {{ book.uploaded_by.DBfirst_name }} {{ book.uploaded_by.DBlast_name }}</h6>
+        <h6>Added on: {{ book.created_at }}</h6>
+        <h6>Last updated on: {{ book.updated_at }}</h6>
+        <h6>{{ book.DBdesc }}</h6>
+
+      </div>
+      <div class="col mt-5">
+        <h2>Users Who Like This Book:</h2>
+        <ul>
+          {% for user in users %}
+          {% if user.id == request.session.userid %}
+          <li>User {{ user.DBfirst_name }} {{ user.DBlast_name }} <a href="/books/unfavorite/{{book.id}}">Unfavorite</a></li>
+          {% else %}
+          <li>User {{ user.DBfirst_name }} {{ user.DBlast_name }}</li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+        <a href="/books/favorite/{{book.id}}">Favorite Book</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
